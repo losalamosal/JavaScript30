@@ -57,9 +57,66 @@
   <audio data-key="75" src="sounds/tom.wav"></audio>
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
-<script>
+  <script>
+   function handlePress(event) {
+     switch(event.keyCode) {
+       case 65:
+       case 65+32:
+         elems = document.querySelectorAll("[data-key='" + (65 .toString()) + "']");
+         break;
+       case 83:
+       case 83+32:
+         elems = document.querySelectorAll("[data-key='" + (83 .toString()) + "']");
+         break;
+       case 68:
+       case 68+32:
+         elems = document.querySelectorAll("[data-key='" + (68 .toString()) + "']");
+         break;
+       case 70:
+       case 70+32:
+         elems = document.querySelectorAll("[data-key='" + (70 .toString()) + "']");
+         break;
+       case 71:
+       case 71+32:
+         elems = document.querySelectorAll("[data-key='" + (71 .toString()) + "']");
+         break;
+       case 72:
+       case 72+32:
+         elems = document.querySelectorAll("[data-key='" + (73 .toString()) + "']");
+         break;
+       case 74:
+       case 74+32:
+         elems = document.querySelectorAll("[data-key='" + (74 .toString()) + "']");
+         break;
+       case 75:
+       case 75+32:
+         elems = document.querySelectorAll("[data-key='" + (75 .toString()) + "']");
+         break;
+       case 76:
+       case 76+32:
+         elems = document.querySelectorAll("[data-key='" + (76 .toString()) + "']");
+         break;
+     }
 
-</script>
+     elems.forEach(function(val, ix, obj) {
+       switch (val.tagName) {
+         case "DIV":
+           val.classList.add("playing");
+           setTimeout(function() {
+             val.classList.remove("playing");
+           }, 80);
+           break;
+         case "AUDIO":
+           val.pause();
+           val.currentTime = 0;
+           val.play();
+           break;
+       }
+     });
+   }
+
+       document.addEventListener("keypress", handlePress);
+  </script>
 
 
 </body>
