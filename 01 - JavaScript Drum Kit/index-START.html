@@ -59,44 +59,20 @@
 
   <script>
    function handlePress(event) {
-     switch(event.keyCode) {
-       case 65:
-       case 65+32:
-         elems = document.querySelectorAll("[data-key='" + (65 .toString()) + "']");
-         break;
-       case 83:
-       case 83+32:
-         elems = document.querySelectorAll("[data-key='" + (83 .toString()) + "']");
-         break;
-       case 68:
-       case 68+32:
-         elems = document.querySelectorAll("[data-key='" + (68 .toString()) + "']");
-         break;
-       case 70:
-       case 70+32:
-         elems = document.querySelectorAll("[data-key='" + (70 .toString()) + "']");
-         break;
-       case 71:
-       case 71+32:
-         elems = document.querySelectorAll("[data-key='" + (71 .toString()) + "']");
-         break;
-       case 72:
-       case 72+32:
-         elems = document.querySelectorAll("[data-key='" + (73 .toString()) + "']");
-         break;
-       case 74:
-       case 74+32:
-         elems = document.querySelectorAll("[data-key='" + (74 .toString()) + "']");
-         break;
-       case 75:
-       case 75+32:
-         elems = document.querySelectorAll("[data-key='" + (75 .toString()) + "']");
-         break;
-       case 76:
-       case 76+32:
-         elems = document.querySelectorAll("[data-key='" + (76 .toString()) + "']");
-         break;
+     cupper = [65, 83, 68, 70, 71, 72, 74, 75, 76];
+     clower = [65+32, 83+32, 68+32, 70+32, 71+32, 72+32, 74+32, 75+32, 76+32];
+     if (cupper.includes(event.keyCode)) {
+       code = event.keyCode;
+       console.log(code);
+     } else {
+       if (clower.includes(event.keyCode)) {
+         code = event.keyCode-32;
+         console.log(code);
+       } else {
+         return;
+       }
      }
+     elems = document.querySelectorAll("[data-key='" + (code .toString()) + "']");
 
      elems.forEach(function(val, ix, obj) {
        switch (val.tagName) {
@@ -115,7 +91,7 @@
      });
    }
 
-       document.addEventListener("keypress", handlePress);
+   document.addEventListener("keypress", handlePress);
   </script>
 
 
