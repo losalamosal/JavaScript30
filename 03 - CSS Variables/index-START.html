@@ -59,7 +59,39 @@
     </style>
 
     <script>
+     //  Hard way, but don't need to use data-sizing hack.
+     root = document.documentElement;
+     
+     document.querySelector("#spacing").addEventListener("change", function() {
+       console.log("change", this.value, typeof(this.value));
+       root.style.setProperty("--spacing", `${this.value}px`);
+     });
+
+     document.querySelector("#spacing").addEventListener("mousemove", function() {
+       console.log("change", this.value, typeof(this.value));
+       root.style.setProperty("--spacing", `${this.value}px`);
+     });
+
+     document.querySelector("#blur").addEventListener("change", function() {
+       console.log("change", this.value);
+       root.style.setProperty("--blur", `${this.value}px`);
+     });
+
+     document.querySelector("#blur").addEventListener("mousemove", function() {
+       console.log("change", this.value);
+       root.style.setProperty("--blur", `${this.value}px`);
+     });
+
+     document.querySelector("#base").addEventListener("change", function() {
+       console.log("change", this.value);
+       root.style.setProperty("--base", `${this.value}`);
+     });
+
+     document.querySelector("#base").addEventListener("mousemove", function() {
+       console.log("change", this.value);
+       root.style.setProperty("--base", `${this.value}`);
+     });
     </script>
 
-</body>
+  </body>
 </html>
