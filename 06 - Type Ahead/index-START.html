@@ -14,9 +14,71 @@
       <li>or a state</li>
     </ul>
   </form>
-<script>
-const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+  
+  <script>
+   const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
 
-</script>
+   let cities = [];
+   //  No error checking. Lame.
+   let search = document.getElementsByClassName("search")[0];
+   let list = document.getElementsByClassName("suggestions")[0];
+
+   //  Remove all existing list items.
+   function clearList() {
+     while (list.firstChild) {
+       list.removeChild(list.firstChild);
+     }
+   }
+
+   //  Reset list to initial state.
+   function resetList() {
+     let li = document.createElement("li");
+     li.appendChild(document.createTextNode("Filter for a city"));
+     list.appendChild(li);
+     li = document.createElement("li");
+     li.appendChild(document.createTextNode("or a state"));
+     list.appendChild(li);
+   }
+
+   function addItemToList(item) {
+     let li = document.createElement("li");
+     let span = document.createElement("span");
+     span.className += "population";
+     span.appendChild(document.createTextNode(item.population));
+     let city = document.createTextNode(item.city);
+     li.appendChild(city);
+     li.appendChild(span);
+     let liHTML = li.innerHTML;
+     console.log(typeof(liHTML));
+     console.log(liHTML);
+     liHTML.replace(/z/, "<span>zz</span>");
+     li.innerHTML = liHTML;
+     console.log(li);
+     list.appendChild(li);
+   }
+
+   fetch(endpoint).then(res => res.json()).then(data => {
+     //  First download the dataset of cities and then filter it to include only name and population.
+     data.filter(elem => {
+       cities.push({city: elem.city, population: elem.population});
+     });
+     //  Then put an event listener on the form input.
+     search.addEventListener("input", e => {
+       clearList();  // wipe out existing list items
+       //  If text input is blank, reset the display to initial condition.
+       if (e.target.value == "") {
+         resetList();
+         return;
+       }
+       //  For any other text value than blank, filter the array of cities to those that include the text value.
+       let filt = cities.filter(elem => elem.city.toLowerCase().includes(e.target.value.toLowerCase()));
+       //  Add each element of the filter array as an item in the list.
+       filt.forEach(item => {
+         addItemToList(item);
+       })
+     });
+   })
+
+  </script>
 </body>
 </html>
